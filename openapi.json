@@ -1,19 +1,17 @@
 {
     "openapi": "3.0.2",
     "info": {
-        "title": "Wallet API Documentations",
+        "title": "Chainproto API Documentations",
         "version": "1.0"
     },
     "servers": [
         {
-            "url": "https://api.x-wallet.io"
+            "url": "https://api.chainproto.io"
         }
     ],
     "security": [
         {
-            "ApiKeyAuth": [],
-            "SignatureAuth": [],
-            "TimestampAuth": []
+            "ApiKeyAuth": []
         }
     ],
     "x-readme": {
@@ -32,19 +30,19 @@
     },
     "paths":
       {
-        "/api/v1/wallets/{wallet_id}": {
+        "/api/v1/webhooks/{webhook_id}": {
             "get": {
-                "description": "Get a wallet.",
-                "operationId": "v1.wallet.get",
+                "description": "Get a webhook.",
+                "operationId": "v1.webhook.get",
                 "parameters": [
                     {
-                        "description": "The wallet's ID or UID",
+                        "description": "The webhook's ID or UID",
                         "in": "path",
-                        "name": "wallet_id",
+                        "name": "webhook_id",
                         "required": true,
                         "schema": {
-                            "description": "The wallet's ID or UID",
-                            "example": "unique-wallet-identifier",
+                            "description": "The webhook's ID or UID",
+                            "example": "unique-webhook-identifier",
                             "maxLength": 256,
                             "minLength": 1,
                             "pattern": "^[a-zA-Z0-9\\-_.]+$",
@@ -58,7 +56,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WalletOut"
+                                    "$ref": "#/components/schemas/WebhookOut"
                                 }
                             }
                         },
@@ -135,95 +133,88 @@
                         "description": "Too Many Requests"
                     }
                 },
-                "security": [
-                    {
-                        "ApiKeyAuth": [],
-                        "SignatureAuth": [],
-                        "TimestampAuth": []
-                    }
-                ],
-                "summary": "Get Wallet",
+                "summary": "Get Webhook",
                 "tags": [
-                    "Wallet"
+                    "Webhook"
                 ],
                 "x-readme": {
                     "code-samples": [
                         {
                             "name": "JavaScript",
                             "language": "node",
-                            "code": "const walletOut = await xwallet.wallet.get(\"wallet_id\");"
+                            "code": "const webhookOut = await chainproto.webhook.get(\"webhook_id\");"
                         },
                         {
                             "name": "TypeScript",
                             "language": "node",
-                            "code": "const walletOut = await xwallet.wallet.get(\"wallet_id\");"
+                            "code": "const webhookOut = await chainproto.webhook.get(\"webhook_id\");"
                         },
                         {
                             "name": "Python",
                             "language": "python",
-                            "code": "wallet_out = xwallet.wallet.get(\"wallet_id\")"
+                            "code": "webhook_out = chainproto.webhook.get(\"webhook_id\")"
                         },
                         {
                             "name": "Python (Async)",
                             "language": "python",
-                            "code": "wallet_out = await xwallet.wallet.get(\"wallet_id\")"
+                            "code": "webhook_out = await chainproto.webhook.get(\"webhook_id\")"
                         },
                         {
                             "name": "Go",
                             "language": "go",
-                            "code": "walletOut, err := xwalletClient.Wallet.Get(ctx, \"wallet_id\")"
+                            "code": "webhookOut, err := chainprotoClient.Webhook.Get(ctx, \"webhook_id\")"
                         },
                         {
                             "name": "Kotlin",
                             "language": "kotlin",
-                            "code": "val walletOut = xwallet.wallet.get(\"wallet_id\")"
+                            "code": "val webhookOut = chainproto.webhook.get(\"webhook_id\")"
                         },
                         {
                             "name": "Java",
                             "language": "java",
-                            "code": "WalletOut walletOut = xwallet.getWallet().get(\"wallet_id\")"
+                            "code": "WebhookOut webhookOut = chainproto.getWebhook().get(\"webhook_id\")"
                         },
                         {
                             "name": "Ruby",
                             "language": "ruby",
-                            "code": "wallet_out = xwallet.wallet.get(\"wallet_id\")"
+                            "code": "webhook_out = chainproto.webhook.get(\"webhook_id\")"
                         },
                         {
                             "name": "Rust",
                             "language": "rust",
-                            "code": "let wallet_out = xwallet.wallet().get(\"wallet_id\").await?;"
+                            "code": "let webhook_out = chainproto.webhook().get(\"webhook_id\").await?;"
                         },
                         {
                             "name": "C#",
                             "language": "csharp",
-                            "code": "var walletOut = await xwallet.Wallet.GetAsync(\"wallet_id\")"
+                            "code": "var webhookOut = await chainproto.Webhook.GetAsync(\"webhook_id\")"
                         },
                         {
                             "name": "CLI",
                             "language": "Shell",
-                            "code": "xwallet wallet get \"wallet_id\""
+                            "code": "chainproto webhook get \"webhook_id\""
                         },
                         {
                             "label": "cURL",
                             "language": "shell",
-                            "code": "curl -X 'GET' \\\n  'https://api.xwallet.com/api/v1/wallets/{wallet_id}' \\\n  -H 'X-API-KEY: AUTH_TOKEN' \\\n  -H 'X-Signature: SIGNATURE' \\\n  -H 'X-Timestamp: TIMESTAMP' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json'"
+                            "code": "curl -X 'GET' \\\n  'https://api.chainproto.io/api/v1/webhooks/{webhook_id}' \\\n  -H 'X-API-KEY: API_KEY' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json'"
                         }
                     ]
                 }      
             }
         },
-        "/api/v1/wallets": {
+        "/api/v1/webhooks": {
             "post": {
-                "description": "Create a new wallet.",
-                "operationId": "v1.wallet.create",
+                "description": "Create a new webhook.",
+                "operationId": "v1.webhook.create",
                 "parameters": [
                     {
-                        "description": "Get an existing wallet, or create a new one if doesn't exist. It's two separate functions in the libs.",
+                        "description": "Get an existing webhook, or create a new one if doesn't exist. It's two separate functions in the libs.",
                         "in": "query",
                         "name": "get_if_exists",
                         "schema": {
                             "default": false,
-                            "description": "Get an existing wallet, or create a new one if doesn't exist. It's two separate functions in the libs.",
+                            "description": "Get an existing webhook, or create a new one if doesn't exist. It's two separate functions in the libs.",
                             "type": "boolean"
                         },
                         "style": "form"
@@ -242,7 +233,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/WalletIn"
+                                "$ref": "#/components/schemas/WebhookIn"
                             }
                         }
                     },
@@ -253,7 +244,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WalletOut"
+                                    "$ref": "#/components/schemas/WebhookOut"
                                 }
                             }
                         },
@@ -263,7 +254,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/WalletOut"
+                                    "$ref": "#/components/schemas/WebhookOut"
                                 }
                             }
                         },
@@ -340,636 +331,71 @@
                         "description": "Too Many Requests"
                     }
                 },
-                "security": [
-                    {
-                        "ApiKeyAuth": [],
-                        "SignatureAuth": [],
-                        "TimestampAuth": []
-                    }
-                ],
-                "summary": "Create Wallet",
+                "summary": "Create Webhook",
                 "tags": [
-                    "Wallet"
+                    "Webhook"
                 ],
                 "x-readme": {
                     "code-samples": [
                         {
                             "name": "JavaScript",
                             "language": "node",
-                            "code": "const walletOut = await xwallet.wallet.create({\n    name: \"My first wallet\",\n    uid: \"unique-wallet-identifier\"\n});"
+                            "code": "const webhookOut = await chainproto.webhook.create({\n    name: \"My first webhook\",\n    uid: \"unique-webhook-identifier\",\n    network: \"eth_mainnet\"\n});"
                         },
                         {
                             "name": "TypeScript",
                             "language": "node",
-                            "code": "const walletOut = await xwallet.wallet.create({\n    name: \"My first wallet\",\n    uid: \"unique-wallet-identifier\"\n});"
+                            "code": "const webhookOut = await chainproto.webhook.create({\n    name: \"My first webhook\",\n    uid: \"unique-webhook-identifier\",\n    network: \"eth_mainnet\"\n});"
                         },
                         {
                             "name": "Python",
                             "language": "python",
-                            "code": "wallet_out = xwallet.wallet.create(WalletIn(\n    name=\"My first wallet\",\n    uid=\"unique-wallet-identifier\"\n), None)"
+                            "code": "webhook_out = chainproto.webhook.create(WebhookIn(\n    name=\"My first webhook\",\n    uid=\"unique-webhook-identifier\",\n    network: \"eth_mainnet\"\n), None)"
                         },
                         {
                             "name": "Python (Async)",
                             "language": "python",
-                            "code": "wallet_out = await xwallet.wallet.create(WalletIn(\n    name=\"My first wallet\",\n    uid=\"unique-wallet-identifier\"\n), None)"
+                            "code": "webhook_out = await chainproto.webhook.create(WebhookIn(\n    name=\"My first webhook\",\n    uid=\"unique-webhook-identifier\",\n    network: \"eth_mainnet\"\n), None)"
                         },
                         {
                             "name": "Go",
                             "language": "go",
-                            "code": "walletOut, err := xwalletClient.Wallet.Create(ctx, &WalletIn{\n    Name: \"My first wallet\",\n    Uid: \"unique-wallet-identifier\",\n})"
+                            "code": "webhookOut, err := chainprotoClient.Webhook.Create(ctx, &WebhookIn{\n    Name: \"My first webhook\",\n    Uid: \"unique-webhook-identifier\",\n    Network: \"eth_mainnet\",\n})"
                         },
                         {
                             "name": "Kotlin",
                             "language": "kotlin",
-                            "code": "val walletOut = xwallet.wallet.create(WalletIn()\n    .name(\"My first wallet\")\n    .uid(\"unique-wallet-identifier\")\n)"
+                            "code": "val webhookOut = chainproto.webhook.create(WebhookIn()\n    .name(\"My first webhook\")\n    .uid(\"unique-webhook-identifier\"\n    .network(\"eth_mainnet\"))\n)"
                         },
                         {
                             "name": "Java",
                             "language": "java",
-                            "code": "WalletOut walletOut = xwallet.getWallet().create(new WalletIn()\n    .name(\"My first wallet\")\n    .uid(\"unique-wallet-identifier\")\n)"
+                            "code": "WebhookOut webhookOut = chainproto.getWebhook().create(new WebhookIn()\n    .name(\"My first webhook\")\n    .uid(\"unique-webhook-identifier\"\n    .network(\"eth_mainnet\"))\n)"
                         },
                         {
                             "name": "Ruby",
                             "language": "ruby",
-                            "code": "wallet_out = xwallet.wallet.create(XWallet::WalletIn.new({\n    \"name\": \"My first wallet\",\n    \"uid\": \"unique-wallet-identifier\"\n}))"
+                            "code": "webhook_out = chainproto.webhook.create(Chainproto::WebhookIn.new({\n    \"name\": \"My first webhook\",\n    \"uid\": \"unique-webhook-identifier\"\n    \"network\": \"eth_mainnet\"\n}))"
                         },
                         {
                             "name": "Rust",
                             "language": "rust",
-                            "code": "let wallet_out = xwallet.wallet().create(WalletIn {\n    name: \"My first wallet\".to_string(),\n    uid: Some(\"unique-wallet-identifier\".to_string()),\n}, None).await?;"
+                            "code": "let webhook_out = chainproto.webhook().create(WebhookIn {\n    name: \"My first webhook\",\n    uid: Some(\"unique-webhook-identifier\".to_string()),\n    network: \"eth_mainnet\",\n}, None).await?;"
                         },
                         {
                             "name": "C#",
                             "language": "csharp",
-                            "code": "var walletOut = await xwallet.Wallet.CreateAsync(new WalletIn{\n    name: \"My first wallet\",\n    uid: \"unique-wallet-identifier\"\n})"
+                            "code": "var webhookOut = await chainproto.Webhook.CreateAsync(new WebhookIn{\n    name: \"My first webhook\",\n    uid: \"unique-webhook-identifier\",\n    network: \"eth_mainnet\"\n})"
                         },
                         {
                             "name": "CLI",
                             "language": "shell",
-                            "code": "xwallet wallet create '{\n    \"name\": \"My first wallet\",\n    \"uid\": \"unique-wallet-identifier\"\n}'"
+                            "code": "chainproto webhook create '{\n    \"name\": \"My first webhook\",\n    \"uid\": \"unique-webhook-identifier\",\n    \"network\": \"eth_mainnet\"\n}'"
                         },
                         {
                             "name": "cURL",
                             "language": "shell",
-                            "code": "curl -X 'POST' \\\n  'https://api.xwallet.io/api/v1/wallets' \\\n  -H 'X-API-KEY: AUTH_TOKEN' \\\n  -H 'X-Signature: SIGNATURE' \\\n  -H 'X-Timestamp: TIMESTAMP' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n        \"name\": \"My first wallet\",\n        \"uid\": \"unique-wallet-identifier\"\n    }'"
-                        }
-                    ]
-                }
-            }
-        },
-
-        "/api/v1/accounts/{account_id}": {
-            "get": {
-                "description": "Get a account.",
-                "operationId": "v1.account.get",
-                "parameters": [
-                    {
-                        "description": "The account's ID or UID",
-                        "in": "path",
-                        "name": "account_id",
-                        "required": true,
-                        "schema": {
-                            "description": "The account's ID or UID",
-                            "example": "unique-account-identifier",
-                            "maxLength": 256,
-                            "minLength": 1,
-                            "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                            "type": "string"
-                        },
-                        "style": "simple"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AccountOut"
-                                }
-                            }
-                        },
-                        "description": ""
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Bad request"
-                    },
-                    "401": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Conflict"
-                    },
-                    "422": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        },
-                        "description": "Validation Error"
-                    },
-                    "429": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Too Many Requests"
-                    }
-                },
-                "summary": "Get Account",
-                "tags": [
-                    "Account"
-                ],
-                "x-readme": {
-                    "code-samples": [
-                        {
-                            "name": "JavaScript",
-                            "language": "node",
-                            "code": "const accountOut = await xwallet.account.get(\"account_id\");"
-                        },
-                        {
-                            "name": "TypeScript",
-                            "language": "node",
-                            "code": "const accountOut = await xwallet.account.get(\"account_id\");"
-                        },
-                        {
-                            "name": "Python",
-                            "language": "python",
-                            "code": "account_out = xwallet.account.get(\"account_id\")"
-                        },
-                        {
-                            "name": "Python (Async)",
-                            "language": "python",
-                            "code": "account_out = await xwallet.account.get(\"account_id\")"
-                        },
-                        {
-                            "name": "Go",
-                            "language": "go",
-                            "code": "accountOut, err := xwalletClient.Account.Get(ctx, \"account_id\")"
-                        },
-                        {
-                            "name": "Kotlin",
-                            "language": "kotlin",
-                            "code": "val accountOut = xwallet.account.get(\"account_id\")"
-                        },
-                        {
-                            "name": "Java",
-                            "language": "java",
-                            "code": "AccountOut accountOut = xwallet.getAccount().get(\"account_id\")"
-                        },
-                        {
-                            "name": "Ruby",
-                            "language": "ruby",
-                            "code": "account_out = xwallet.account.get(\"account_id\")"
-                        },
-                        {
-                            "name": "Rust",
-                            "language": "rust",
-                            "code": "let account_out = xwallet.account().get(\"account_id\").await?;"
-                        },
-                        {
-                            "name": "C#",
-                            "language": "csharp",
-                            "code": "var accountOut = await xwallet.Account.GetAsync(\"account_id\")"
-                        },
-                        {
-                            "name": "CLI",
-                            "language": "Shell",
-                            "code": "xwallet account get \"account_id\""
-                        },
-                        {
-                            "label": "cURL",
-                            "language": "shell",
-                            "code": "curl -X 'GET' \\\n  'https://api.xwallet.com/api/v1/accounts/{account_id}' \\\n  -H 'X-API-KEY: AUTH_TOKEN' \\\n  -H 'X-Signature: SIGNATURE' \\\n  -H 'X-Timestamp: TIMESTAMP' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json'"
-                        }
-                    ]
-                }      
-            }
-        },
-
-        "/api/v1/accounts/{account_id}/withdraw": {
-            "post": {
-                "description": "Withdraw from a account.",
-                "operationId": "v1.account.withdraw",
-                "parameters": [
-                    {
-                        "description": "The account's ID or UID",
-                        "in": "path",
-                        "name": "account_id",
-                        "required": true,
-                        "schema": {
-                            "description": "The account's ID or UID",
-                            "example": "unique-account-identifier",
-                            "maxLength": 256,
-                            "minLength": 1,
-                            "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                            "type": "string"
-                        },
-                        "style": "simple"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/WithdrawIn"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/WithdrawOut"
-                                }
-                            }
-                        },
-                        "description": ""
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Bad request"
-                    },
-                    "401": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Conflict"
-                    },
-                    "422": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        },
-                        "description": "Validation Error"
-                    },
-                    "429": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Too Many Requests"
-                    }
-                },
-                "summary": "Withdraw from Account",
-                "tags": [
-                    "Account"
-                ],
-                "x-readme": {
-                    "code-samples": [
-                        {
-                            "name": "JavaScript",
-                            "language": "node",
-                            "code": "const withdrawOut = await xwallet.account.withdraw({\n    amount: \"1\",\n    currency: \"USDT\",\n    network: \"tron\",\n    address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n});"
-                        },
-                        {
-                            "name": "TypeScript",
-                            "language": "node",
-                            "code": "const withdrawOut = await xwallet.account.withdraw({\n    amount: \"1\",\n    currency: \"USDT\",\n    network: \"tron\"\n    address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"});"
-                        },
-                        {
-                            "name": "Python",
-                            "language": "python",
-                            "code": "withdraw_out = xwallet.account.withdraw(WithdrawIn(\n    amount=\"1\",\n    currency=\"USDT\",\n    network=\"tron\",\n    address=\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"), None)"
-                        },
-                        {
-                            "name": "Python (Async)",
-                            "language": "python",
-                            "code": "withdraw_out = await xwallet.account.withdraw(WithdrawIn(\n    amount=\"1\",\n    currency=\"USDT\",\n    network=\"tron\",\n    address=\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"), None)"
-                        },
-                        {
-                            "name": "Go",
-                            "language": "go",
-                            "code": "withdrawOut, err := xwalletClient.Account.Withdraw(ctx, &WithdrawIn{\n    amount: \"1\",\n    Currency: \"USDT\",\n    Network: \"tron\",\n    Address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\",\n})"
-                        },
-                        {
-                            "name": "Kotlin",
-                            "language": "kotlin",
-                            "code": "val withdrawOut = xwallet.withdraw.withdraw(WithdrawIn()\n    .amount(\"1\")\n    .currency(\"USDT\")\n    .network(\"tron\")\n    .address(\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\")\n)"
-                        },
-                        {
-                            "name": "Java",
-                            "language": "java",
-                            "code": "WithdrawOut withdrawOut = xwallet.getAccount().withdraw(new WithdrawIn()\n    .amount(\"1\")\n    .currency(\"USDT\")\n    .network(\"tron\")\n    .address(\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\")\n)"
-                        },
-                        {
-                            "name": "Ruby",
-                            "language": "ruby",
-                            "code": "withdraw_out = xwallet.account.withdraw(XWallet::WithdrawIn.new({\n    \"amount\": \"1\",\n    \"currency\": \"USDT\",\n    \"network\": \"tron\"\n    \"address\": \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n}))"
-                        },
-                        {
-                            "name": "Rust",
-                            "language": "rust",
-                            "code": "let withdraw_out = xwallet.account().withdraw(WithdrawIn {\n    amount: \"1\",\n    currency: \"USDT\",\n    network: \"tron\",\n    address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"),\n}, None).await?;"
-                        },
-                        {
-                            "name": "C#",
-                            "language": "csharp",
-                            "code": "var withdrawOut = await xwallet.Account.WithdrawAsync(new WithdrawIn{\n    amount: \"1\",\n    currency: \"USDT\",\n    network: \"tron\",\n    address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n})"
-                        },
-                        {
-                            "name": "CLI",
-                            "language": "shell",
-                            "code": "xwallet account withdraw '{\n    \"amount\": \"1\",\n    \"currency\": \"USDT\",\n    \"network\": \"tron\",\n    \"address\": \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n}'"
-                        },
-                        {
-                            "name": "cURL",
-                            "language": "shell",
-                            "code": "curl -X 'POST' \\\n  'https://api.xwallet.io/api/v1/accounts/{account_id}/withdraw' \\\n  -H 'X-API-KEY: AUTH_TOKEN' \\\n  -H 'X-Signature: SIGNATURE' \\\n  -H 'X-Timestamp: TIMESTAMP' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n        \"amount\": \"1\",\n        \"currency\": \"USDT\",\n        \"network\": \"tron\",\n        \"address\": \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n    }'"
-                        }
-                    ]
-                }      
-            }
-        },
-
-
-        "/api/v1/accounts": {
-            "post": {
-                "description": "Create a new account.",
-                "operationId": "v1.account.create",
-                "parameters": [
-                    {
-                        "description": "Get an existing account, or create a new one if doesn't exist. It's two separate functions in the libs.",
-                        "in": "query",
-                        "name": "get_if_exists",
-                        "schema": {
-                            "default": false,
-                            "description": "Get an existing account, or create a new one if doesn't exist. It's two separate functions in the libs.",
-                            "type": "boolean"
-                        },
-                        "style": "form"
-                    },
-                    {
-                        "description": "The request's idempotency key",
-                        "in": "header",
-                        "name": "idempotency-key",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "style": "simple"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/AccountIn"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AccountOut"
-                                }
-                            }
-                        },
-                        "description": ""
-                    },
-                    "201": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AccountOut"
-                                }
-                            }
-                        },
-                        "description": ""
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Bad request"
-                    },
-                    "401": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Conflict"
-                    },
-                    "422": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        },
-                        "description": "Validation Error"
-                    },
-                    "429": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HttpErrorOut"
-                                }
-                            }
-                        },
-                        "description": "Too Many Requests"
-                    }
-                },
-                "summary": "Create Account",
-                "tags": [
-                    "Account"
-                ],
-                "x-readme": {
-                    "code-samples": [
-                        {
-                            "name": "JavaScript",
-                            "language": "node",
-                            "code": "const accountOut = await xwallet.account.create({\n    walletId: \"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    currency: \"USDT\",\n    uid: \"unique-account-identifier\"\n});"
-                        },
-                        {
-                            "name": "TypeScript",
-                            "language": "node",
-                            "code": "const accountOut = await xwallet.account.create({\n    walletId: \"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    currency: \"USDT\",\n    uid: \"unique-account-identifier\"\n});"
-                        },
-                        {
-                            "name": "Python",
-                            "language": "python",
-                            "code": "account_out = xwallet.account.create(AccountIn(\n    walletId=\"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    currency=\"USDT\",\n    uid=\"unique-account-identifier\"\n), None)"
-                        },
-                        {
-                            "name": "Python (Async)",
-                            "language": "python",
-                            "code": "account_out = await xwallet.account.create(AccountIn(\n    walletId=\"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    currency=\"USDT\",\n    uid=\"unique-account-identifier\"\n), None)"
-                        },
-                        {
-                            "name": "Go",
-                            "language": "go",
-                            "code": "accountOut, err := xwalletClient.Account.Create(ctx, &AccountIn{\n    WalletId: \"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    Currency: \"USDT\",\n    Uid: \"unique-account-identifier\",\n})"
-                        },
-                        {
-                            "name": "Kotlin",
-                            "language": "kotlin",
-                            "code": "val accountOut = xwallet.account.create(AccountIn()\n    .accountId(\"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\")\n    .currency(\"USDT\")\n    .uid(\"unique-account-identifier\")\n)"
-                        },
-                        {
-                            "name": "Java",
-                            "language": "java",
-                            "code": "AccountOut accountOut = xwallet.getAccount().create(new AccountIn()\n    .accountId(\"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\")\n    .currency(\"USDT\")\n    .uid(\"unique-account-identifier\")\n)"
-                        },
-                        {
-                            "name": "Ruby",
-                            "language": "ruby",
-                            "code": "account_out = xwallet.account.create(XWallet::AccountIn.new({\n    \"account_id\": \"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    \"currency\": \"USDT\",\n    \"uid\": \"unique-account-identifier\"\n}))"
-                        },
-                        {
-                            "name": "Rust",
-                            "language": "rust",
-                            "code": "let account_out = xwallet.account().create(AccountIn {\n    walletId: \"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\".to_string(),\n    currency: \"USDT\",\n    uid: Some(\"unique-account-identifier\".to_string()),\n}, None).await?;"
-                        },
-                        {
-                            "name": "C#",
-                            "language": "csharp",
-                            "code": "var accountOut = await xwallet.Account.CreateAsync(new AccountIn{\n    walletId: \"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    currency: \"USDT\",\n    uid: \"unique-account-identifier\"\n})"
-                        },
-                        {
-                            "name": "CLI",
-                            "language": "shell",
-                            "code": "xwallet account create '{\n    \"wallet_id\": \"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    \"currency\": \"USDT\",\n    \"uid\": \"unique-account-identifier\"\n}'"
-                        },
-                        {
-                            "name": "cURL",
-                            "language": "shell",
-                            "code": "curl -X 'POST' \\\n  'https://api.xwallet.io/api/v1/accounts' \\\n  -H 'X-API-KEY: AUTH_TOKEN' \\\n  -H 'X-Signature: SIGNATURE' \\\n  -H 'X-Timestamp: TIMESTAMP' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n        \"wallet_id\": \"wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2\",\n        \"currency\": \"USDT\",\n        \"uid\": \"unique-wallet-identifier\"\n    }'"
+                            "code": "curl -X 'POST' \\\n  'https://api.chainproto.io/api/v1/webhooks' \\\n  -H 'X-API-KEY: API_KEY' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n        \"name\": \"My first webhook\",\n        \"uid\": \"unique-webhook-identifier\",\n        \"network\": \"eth_mainnet\"\n    }'"
                         }
                     ]
                 }
@@ -1088,62 +514,62 @@
                         {
                             "name": "JavaScript",
                             "language": "node",
-                            "code": "const addressOut = await xwallet.address.get(\"address_id\");"
+                            "code": "const addressOut = await chainproto.address.get(\"address_id\");"
                         },
                         {
                             "name": "TypeScript",
                             "language": "node",
-                            "code": "const addressOut = await xwallet.address.get(\"address_id\");"
+                            "code": "const addressOut = await chainproto.address.get(\"address_id\");"
                         },
                         {
                             "name": "Python",
                             "language": "python",
-                            "code": "address_out = xwallet.address.get(\"address_id\")"
+                            "code": "address_out = chainproto.address.get(\"address_id\")"
                         },
                         {
                             "name": "Python (Async)",
                             "language": "python",
-                            "code": "address_out = await xwallet.address.get(\"address_id\")"
+                            "code": "address_out = await chainproto.address.get(\"address_id\")"
                         },
                         {
                             "name": "Go",
                             "language": "go",
-                            "code": "addressOut, err := xwalletClient.Address.Get(ctx, \"address_id\")"
+                            "code": "addressOut, err := chainprotoClient.Address.Get(ctx, \"address_id\")"
                         },
                         {
                             "name": "Kotlin",
                             "language": "kotlin",
-                            "code": "val addressOut = xwallet.address.get(\"address_id\")"
+                            "code": "val addressOut = chainproto.address.get(\"address_id\")"
                         },
                         {
                             "name": "Java",
                             "language": "java",
-                            "code": "AddressOut addressOut = xwallet.getAddress().get(\"address_id\")"
+                            "code": "AddressOut addressOut = chainproto.getAddress().get(\"address_id\")"
                         },
                         {
                             "name": "Ruby",
                             "language": "ruby",
-                            "code": "address_out = xwallet.address.get(\"address_id\")"
+                            "code": "address_out = chainproto.address.get(\"address_id\")"
                         },
                         {
                             "name": "Rust",
                             "language": "rust",
-                            "code": "let address_out = xwallet.address().get(\"address_id\").await?;"
+                            "code": "let address_out = chainproto.address().get(\"address_id\").await?;"
                         },
                         {
                             "name": "C#",
                             "language": "csharp",
-                            "code": "var addressOut = await xwallet.Address.GetAsync(\"address_id\")"
+                            "code": "var addressOut = await chainproto.Address.GetAsync(\"address_id\")"
                         },
                         {
                             "name": "CLI",
                             "language": "Shell",
-                            "code": "xwallet address get \"address_id\""
+                            "code": "chainproto address get \"address_id\""
                         },
                         {
                             "label": "cURL",
                             "language": "shell",
-                            "code": "curl -X 'GET' \\\n  'https://api.xwallet.com/api/v1/addresses/{address_id}' \\\n  -H 'X-API-KEY: AUTH_TOKEN' \\\n  -H 'X-Signature: SIGNATURE' \\\n  -H 'X-Timestamp: TIMESTAMP' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json'"
+                            "code": "curl -X 'GET' \\\n  'https://api.chainproto.io/api/v1/addresses/{address_id}' \\\n  -H 'X-API-KEY: API_KEY' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json'"
                         }
                     ]
                 }      
@@ -1286,62 +712,62 @@
                         {
                             "name": "JavaScript",
                             "language": "node",
-                            "code": "const addressOut = await xwallet.address.create({\n    accountId: \"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    chain: \"ERC20\",\n    token: \"USDT\",\n    uid: \"unique-address-identifier\"\n});"
+                            "code": "const addressOut = await chainproto.address.create({\n    chain: \"ERC20\",\n    token: \"USDT\",\n    address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n});"
                         },
                         {
                             "name": "TypeScript",
                             "language": "node",
-                            "code": "const addressOut = await xwallet.address.create({\n    accountId: \"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    chain: \"ERC20\",\n    token: \"USDT\",\n    uid: \"unique-address-identifier\"\n});"
+                            "code": "const addressOut = await chainproto.address.create({\n    chain: \"ERC20\",\n    token: \"USDT\"\n    address:\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"});"
                         },
                         {
                             "name": "Python",
                             "language": "python",
-                            "code": "address_out = xwallet.address.create(AddressIn(\n    accountId=\"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    chain=\"ERC20\",\n    token=\"USDT\",\n    uid=\"unique-address-identifier\"\n), None)"
+                            "code": "address_out = chainproto.address.create(AddressIn(\n    chain=\"ERC20\",\n    token=\"USDT\",\n    address=\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n), None)"
                         },
                         {
                             "name": "Python (Async)",
                             "language": "python",
-                            "code": "address_out = await xwallet.address.create(AddressIn(\n    accountId=\"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    chain=\"ERC20\",\n    token=\"USDT\",\n    uid=\"unique-address-identifier\"\n), None)"
+                            "code": "address_out = await chainproto.address.create(AddressIn(\n    chain=\"ERC20\",\n    token=\"USDT\",\n    address=\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n), None)"
                         },
                         {
                             "name": "Go",
                             "language": "go",
-                            "code": "addressOut, err := xwalletClient.Address.Create(ctx, &AddressIn{\n    AccountId: \"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    Chain: \"ERC20\",\n    Token: \"USDT\",\n    Uid: \"unique-address-identifier\",\n})"
+                            "code": "addressOut, err := chainprotoClient.Address.Create(ctx, &AddressIn{\n    Chain: \"ERC20\",\n    Token: \"USDT\",\n    Address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\",\n})"
                         },
                         {
                             "name": "Kotlin",
                             "language": "kotlin",
-                            "code": "val addressOut = xwallet.address.create(AddressIn()\n    .walletId(\"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\")\n    .chain(\"ERC20\")\n    .token(\"USDT\")\n    .uid(\"unique-account-identifier\")\n)"
+                            "code": "val addressOut = chainproto.address.create(AddressIn()\n    .chain(\"ERC20\")\n    .token(\"USDT\")\n    .address(\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\")\n)"
                         },
                         {
                             "name": "Java",
                             "language": "java",
-                            "code": "AddressOut addressOut = xwallet.getAddress().create(new AddressIn()\n    .accountId(\"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\")\n    .chain(\"ERC20\")\n    .token(\"USDT\")\n    .uid(\"unique-address-identifier\")\n)"
+                            "code": "AddressOut addressOut = chainproto.getAddress().create(new AddressIn()\n    .chain(\"ERC20\")\n    .token(\"USDT\")\n    .address(\"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\")\n)"
                         },
                         {
                             "name": "Ruby",
                             "language": "ruby",
-                            "code": "address_out = xwallet.address.create(XWallet::AddressIn.new({\n    \"account_id\": \"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    \"chain\": \"ERC20\",\n    \"token\": \"USDT\",\n    \"uid\": \"unique-address-identifier\"\n}))"
+                            "code": "address_out = chainproto.address.create(Chainproto::AddressIn.new({\n    \"chain\": \"ERC20\",\n    \"token\": \"USDT\",\n    \"address\": \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n}))"
                         },
                         {
                             "name": "Rust",
                             "language": "rust",
-                            "code": "let address_out = xwallet.address().create(AddressIn {\n    accountId: \"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\".to_string(),\n    chain: \"ERC20\",\n    token: \"USDT\",\n    uid: Some(\"unique-address-identifier\".to_string()),\n}, None).await?;"
+                            "code": "let address_out = chainproto.address().create(AddressIn {\n    chain: \"ERC20\",\n    token: \"USDT\",\n    address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\",\n}, None).await?;"
                         },
                         {
                             "name": "C#",
                             "language": "csharp",
-                            "code": "var addressOut = await xwallet.Address.CreateAsync(new AddressIn{\n    accountId: \"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    chain: \"ERC20\",\n    token: \"USDT\",\n    uid: \"unique-address-identifier\"\n})"
+                            "code": "var addressOut = await chainproto.Address.CreateAsync(new AddressIn{\n    chain: \"ERC20\",\n    token: \"USDT\",\n    address: \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n})"
                         },
                         {
                             "name": "CLI",
                             "language": "shell",
-                            "code": "xwallet address create '{\n    \"account_id\": \"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n    \"chain\": \"ERC20\",\n    \"token\": \"USDT\",\n    \"uid\": \"unique-address-identifier\"\n}'"
+                            "code": "chainproto address create '{\n    \"chain\": \"ERC20\",\n    \"token\": \"USDT\",\n    \"address\": \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n}'"
                         },
                         {
                             "name": "cURL",
                             "language": "shell",
-                            "code": "curl -X 'POST' \\\n  'https://api.xwallet.io/api/v1/addresses' \\\n  -H 'X-API-KEY: AUTH_TOKEN' \\\n  -H 'X-Signature: SIGNATURE' \\\n  -H 'X-Timestamp: TIMESTAMP' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n        \"account_id\": \"account_2srOrx2ZWZBpBUvZwXKQmoEYga2\",\n        \"chain\": \"ERC20\",\n        \"token\": \"USDT\",\n        \"uid\": \"unique-address-identifier\"\n    }'"
+                            "code": "curl -X 'POST' \\\n  'https://api.chainproto.io/api/v1/addresses' \\\n  -H 'X-API-KEY: API_KEY' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n        \"chain\": \"ERC20\",\n        \"token\": \"USDT\",\n        \"address\": \"TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE\"\n    }'"
                         }
                     ]
                 }
@@ -1406,7 +832,7 @@
                 ],
                 "type": "object"
             },
-            "WalletIn": {
+            "WebhookIn": {
                 "properties": {
                     "metadata": {
                         "additionalProperties": {
@@ -1416,34 +842,42 @@
                         "type": "object"
                     },
                     "name": {
-                        "example": "My first wallet",
+                        "example": "My first webhook",
                         "minLength": 1,
                         "type": "string"
                     },
                     "uid": {
-                        "description": "Optional unique identifier for the wallet",
-                        "example": "unique-wallet-identifier",
+                        "description": "Optional unique identifier for the webhook",
+                        "example": "unique-webhook-identifier",
                         "maxLength": 256,
                         "minLength": 1,
                         "nullable": true,
                         "pattern": "^[a-zA-Z0-9\\-_.]+$",
                         "type": "string"
+                    },
+                    "network": {
+                        "description": "Blockchain network",
+                        "example": "eth_mainnet",
+                        "maxLength": 256,
+                        "minLength": 1,
+                        "type": "string"
                     }
                 },
                 "required": [
-                    "name"
+                    "name",
+                    "network"
                 ],
                 "type": "object"
             },
-            "WalletOut": {
+            "WebhookOut": {
                 "properties": {
                     "createdAt": {
                         "format": "date-time",
                         "type": "string"
                     },
                     "id": {
-                        "description": "The wallet's ID",
-                        "example": "wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2",
+                        "description": "The webhook's ID",
+                        "example": "webhook_1brOrx2ZWZBpBUvZwXKQmoEYga2",
                         "type": "string"
                     },
                     "metadata": {
@@ -1453,16 +887,23 @@
                         "type": "object"
                     },
                     "name": {
-                        "example": "My first wallet",
+                        "example": "My first webhook",
                         "type": "string"
                     },
                     "uid": {
-                        "description": "The wallet's UID",
-                        "example": "unique-wallet-identifier",
+                        "description": "The webhook's UID",
+                        "example": "unique-webhook-identifier",
                         "maxLength": 256,
                         "minLength": 1,
                         "nullable": true,
                         "pattern": "^[a-zA-Z0-9\\-_.]+$",
+                        "type": "string"
+                    },
+                    "network": {
+                        "description": "Blockchain network",
+                        "example": "eth_mainnet",
+                        "maxLength": 256,
+                        "minLength": 1,
                         "type": "string"
                     },
                     "updatedAt": {
@@ -1475,129 +916,13 @@
                     "id",
                     "metadata",
                     "name",
-                    "updatedAt"
-                ],
-                "type": "object"
-            },
-            "AccountIn": {
-                "properties": {
-                    "metadata": {
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "default": {},
-                        "type": "object"
-                    },
-                    "wallet_id": {
-                        "example": "wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
-                    "uid": {
-                        "description": "Optional unique identifier for the account",
-                        "example": "unique-account-identifier",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "nullable": true,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
-                    "currency": {
-                        "description": "Currency for the account",
-                        "example": "USDT",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "wallet_id",
-                    "currency"
-                ],
-                "type": "object"
-            },
-            "AccountOut": {
-                "properties": {
-                    "createdAt": {
-                        "format": "date-time",
-                        "type": "string"
-                    },
-                    "id": {
-                        "description": "The account's ID",
-                        "example": "account_2srOrx2ZWZBpBUvZwXKQmoEYga2",
-                        "type": "string"
-                    },
-                    "metadata": {
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "type": "object"
-                    },
-                    "wallet_id": {
-                        "example": "wallet_1srOrx2ZWZBpBUvZwXKQmoEYga2",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
-                    "uid": {
-                        "description": "The account's UID",
-                        "example": "unique-account-identifier",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "nullable": true,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
-                    "currency": {
-                        "description": "Currency for the account",
-                        "example": "USDT",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "type": "string"
-                    },
-                    "updatedAt": {
-                        "format": "date-time",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "wallet_id",
-                    "currency",
-                    "metadata",
-                    "createdAt",
+                    "network",
                     "updatedAt"
                 ],
                 "type": "object"
             },
             "AddressIn": {
                 "properties": {
-                    "metadata": {
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "default": {},
-                        "type": "object"
-                    },
-                    "account_id": {
-                        "example": "account_2srOrx2ZWZBpBUvZwXKQmoEYga2",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
-                    "uid": {
-                        "description": "Optional unique identifier for the address",
-                        "example": "unique-address-identifier",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "nullable": true,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
                     "chain": {
                         "description": "blockchain identifier",
                         "example": "ERC20",
@@ -1611,41 +936,27 @@
                         "maxLength": 256,
                         "minLength": 1,
                         "type": "string"
+                    },
+                    "address": {
+                        "description": "address",
+                        "example": "TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE",
+                        "maxLength": 256,
+                        "minLength": 1,
+                        "type": "string"
                     }
                 },
                 "required": [
-                    "wallet_id",
-                    "currency"
+                    "chain",
+                    "token",
+                    "address"
                 ],
                 "type": "object"
             },
             "AddressOut": {
                 "properties": {
                     "id": {
-                        "description": "The account's ID",
-                        "example": "account_2srOrx2ZWZBpBUvZwXKQmoEYga2",
-                        "type": "string"
-                    },
-                    "metadata": {
-                        "additionalProperties": {
-                            "type": "string"
-                        },
-                        "type": "object"
-                    },
-                    "account_id": {
-                        "example": "account_2srOrx2ZWZBpBUvZwXKQmoEYga2",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
-                    "uid": {
-                        "description": "The account's UID",
-                        "example": "unique-account-identifier",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "nullable": true,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
+                        "description": "The address's ID",
+                        "example": "address_2srOrx2ZWZBpBUvZwXKQmoEYga2",
                         "type": "string"
                     },
                     "chain": {
@@ -1665,6 +976,8 @@
                     "address": {
                         "description": "address",
                         "example": "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
+                        "maxLength": 256,
+                        "minLength": 1,
                         "type": "string"
                     },
                     "createdAt": {
@@ -1678,102 +991,8 @@
                 },
                 "required": [
                     "id",
-                    "account_id",
                     "chain",
                     "token",
-                    "address",
-                    "metadata",
-                    "createdAt",
-                    "updatedAt"
-                ],
-                "type": "object"
-            },
-            "WithdrawIn": {
-                "properties": {
-                    "account_id": {
-                        "example": "account_2srOrx2ZWZBpBUvZwXKQmoEYga2",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
-                    "amount": {
-                        "description": "Amount",
-                        "example": "1",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "pattern": "^[0-9]+$",
-                        "type": "string"
-                    },
-                    "network": {
-                        "description": "blockchain network",
-                        "example": "tron",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "type": "string"
-                    },
-                    "address": {
-                        "description": "Destination address",
-                        "example": "TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "wallet_id",
-                    "currency"
-                ],
-                "type": "object"
-            },
-            "WithdrawOut": {
-                "properties": {
-                    "id": {
-                        "description": "The withdraw's ID",
-                        "example": "67a1f25f-2c06-3ef2-962a-15475d9ddedb",
-                        "type": "string"
-                    },
-                    "account_id": {
-                        "example": "account_2srOrx2ZWZBpBUvZwXKQmoEYga2",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "pattern": "^[a-zA-Z0-9\\-_.]+$",
-                        "type": "string"
-                    },
-                    "network": {
-                        "description": "Blockchain identifier",
-                        "example": "ERC20",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "type": "string"
-                    },
-                    "amount": {
-                        "description": "Amount",
-                        "example": "1",
-                        "maxLength": 256,
-                        "minLength": 1,
-                        "pattern": "^[0-9]+$",
-                        "type": "string"
-                    },
-                    "address": {
-                        "description": "Destination address",
-                        "example": "TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE",
-                        "type": "string"
-                    },
-                    "createdAt": {
-                        "format": "date-time",
-                        "type": "string"
-                    },
-                    "updatedAt": {
-                        "format": "date-time",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "id",
-                    "account_id",
-                    "network",
-                    "amount",
                     "address",
                     "createdAt",
                     "updatedAt"
@@ -1783,20 +1002,10 @@
         },
         "securitySchemes": {
             "ApiKeyAuth": {
-              "type": "apiKey",
-              "in": "header",
-              "name": "x-api-key"
-            },
-            "SignatureAuth": {
-              "type": "apiKey",
-              "in": "header",
-              "name": "x-signature"
-            },
-            "TimestampAuth": {
-              "type": "apiKey",
-              "in": "header",
-              "name": "x-timestamp"
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-api-key"
             }
-          }
+        }
     }
 }
