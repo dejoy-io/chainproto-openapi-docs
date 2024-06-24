@@ -861,6 +861,22 @@
                         "maxLength": 256,
                         "minLength": 1,
                         "type": "string"
+                    },
+                    "filterTypes": {
+                        "example": [
+                            "transaction.mined",
+                            "transaction.dropped"
+                        ],
+                        "items": {
+                            "example": "transaction.mined",
+                            "maxLength": 256,
+                            "pattern": "^[a-zA-Z0-9\\-_.]+$",
+                            "type": "string"
+                        },
+                        "minItems": 1,
+                        "nullable": true,
+                        "type": "array",
+                        "uniqueItems": true
                     }
                 },
                 "required": [
